@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { provideRoutes } from '@angular/router';
+
 import { Personaje } from '../interfaces/dbz.interface';
+import { DbzService } from '../services/dbz.service';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
 })
 export class MainPageComponent{
+
 
   personajes: Personaje[] = [
     {
@@ -19,20 +22,15 @@ export class MainPageComponent{
     }
   ]
 
-  nuevo:Personaje = {
+  nuevo: Personaje = {
     nombre: '',
     poder: 0
   }
 
-  agregar(){
-    if(this.nuevo.nombre.trim().length === 0){  return; }
-    else {
-      this.personajes.push(this.nuevo);
-      this.nuevo = {
-        nombre: '',
-        poder: 0
-      } 
-    }
-    console.log(this.nuevo);
+  agregarNuevoPersonaje( personaje:Personaje ){
+    this.personajes.push( personaje );
   }
+
+  constructor( private DbzService: DbzService){}
+
 }
